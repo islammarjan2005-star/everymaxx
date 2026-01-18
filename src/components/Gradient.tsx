@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Platform, StyleSheet, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
 interface GradientProps {
   colors: string[];
@@ -16,26 +16,18 @@ export const Gradient: React.FC<GradientProps> = ({
   style,
   children,
 }) => {
-  if (Platform.OS === 'web') {
-    // Calculate CSS gradient direction
-    const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) + 90;
-    const gradientStyle = {
-      background: `linear-gradient(${angle}deg, ${colors.join(', ')})`,
-    };
+  // Calculate CSS gradient direction from start/end points
+  const angle = Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) + 90;
 
-    return (
-      <View style={[style, gradientStyle as any]}>
-        {children}
-      </View>
-    );
-  }
+  const webStyle = {
+    ...style,
+    background: `linear-gradient(${angle}deg, ${colors.join(', ')})`,
+  };
 
-  // For native, use expo-linear-gradient
-  const { LinearGradient } = require('expo-linear-gradient');
   return (
-    <LinearGradient colors={colors} start={start} end={end} style={style}>
+    <View style={webStyle as any}>
       {children}
-    </LinearGradient>
+    </View>
   );
 };
 
