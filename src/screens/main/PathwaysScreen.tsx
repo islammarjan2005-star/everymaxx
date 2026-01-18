@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius, pathwayGradients } from '../../utils/theme';
 import { useUser } from '../../context/UserContext';
 import { PATHWAYS, PATHWAY_ORDER } from '../../data/pathways';
@@ -23,12 +23,12 @@ const PathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const inactivePathways = PATHWAY_ORDER.filter((id) => !activePathways.includes(id));
 
   const handlePathwayPress = (pathwayId: PathwayId) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    haptics.impact('light');
     navigation.navigate('PathwayDetail', { pathwayId });
   };
 
   const handleAddPathway = async (pathwayId: PathwayId) => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    haptics.notification('success');
     await addPathway(pathwayId);
   };
 
@@ -58,7 +58,7 @@ const PathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 onPress={() => handlePathwayPress(pathwayId)}
                 activeOpacity={0.7}
               >
-                <LinearGradient
+                <Gradient
                   colors={pathwayGradients[pathwayId]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
@@ -112,7 +112,7 @@ const PathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                       <Text style={styles.statLabel}>📚 Skills</Text>
                     </View>
                   </View>
-                </LinearGradient>
+                </Gradient>
               </TouchableOpacity>
             );
           })}

@@ -9,8 +9,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius } from '../../utils/theme';
 import { useUser } from '../../context/UserContext';
 import { PathwayId } from '../../types';
@@ -28,7 +28,7 @@ const CreateProfileScreen = ({ navigation, route }: { navigation: any; route: an
     if (!canContinue || loading) return;
 
     setLoading(true);
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    haptics.notification('success');
 
     try {
       await initializeUser(username.trim(), selectedPathways, primaryPathway);
@@ -109,7 +109,7 @@ const CreateProfileScreen = ({ navigation, route }: { navigation: any; route: an
             disabled={!canContinue || loading}
             activeOpacity={0.8}
           >
-            <LinearGradient
+            <Gradient
               colors={canContinue ? [colors.primary, colors.primaryDark] : [colors.surfaceLight, colors.surfaceLight]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -118,7 +118,7 @@ const CreateProfileScreen = ({ navigation, route }: { navigation: any; route: an
               <Text style={[styles.continueText, !canContinue && styles.continueTextDisabled]}>
                 {loading ? 'Creating...' : 'Start Maxxing'}
               </Text>
-            </LinearGradient>
+            </Gradient>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

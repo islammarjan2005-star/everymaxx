@@ -7,8 +7,8 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius } from '../../utils/theme';
 import { PATHWAYS, PATHWAY_ORDER } from '../../data/pathways';
 import { PathwayId } from '../../types';
@@ -17,7 +17,7 @@ const SelectPathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
   const [selected, setSelected] = useState<PathwayId[]>([]);
 
   const togglePathway = (id: PathwayId) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    haptics.impact('light');
     if (selected.includes(id)) {
       setSelected(selected.filter((p) => p !== id));
     } else {
@@ -53,7 +53,7 @@ const SelectPathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
                 activeOpacity={0.7}
               >
                 {isSelected && (
-                  <LinearGradient
+                  <Gradient
                     colors={[`${pathway.color}20`, `${pathway.color}05`]}
                     style={StyleSheet.absoluteFill}
                   />
@@ -84,14 +84,14 @@ const SelectPathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
           style={[styles.continueButton, !canContinue && styles.continueButtonDisabled]}
           onPress={() => {
             if (canContinue) {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              haptics.impact('medium');
               navigation.navigate('SelectPrimary', { selectedPathways: selected });
             }
           }}
           disabled={!canContinue}
           activeOpacity={0.8}
         >
-          <LinearGradient
+          <Gradient
             colors={canContinue ? [colors.primary, colors.primaryDark] : [colors.surfaceLight, colors.surfaceLight]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
@@ -100,7 +100,7 @@ const SelectPathwaysScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
             <Text style={[styles.continueText, !canContinue && styles.continueTextDisabled]}>
               Continue
             </Text>
-          </LinearGradient>
+          </Gradient>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

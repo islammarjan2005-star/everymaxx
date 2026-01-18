@@ -7,8 +7,8 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius } from '../../utils/theme';
 import { PATHWAYS } from '../../data/pathways';
 import { PathwayId } from '../../types';
@@ -45,13 +45,13 @@ const SelectPrimaryScreen = ({ navigation, route }: { navigation: any; route: an
                   isPrimary && { borderColor: pathway.color },
                 ]}
                 onPress={() => {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  haptics.impact('light');
                   setPrimary(id);
                 }}
                 activeOpacity={0.7}
               >
                 {isPrimary && (
-                  <LinearGradient
+                  <Gradient
                     colors={pathway.gradientColors}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
@@ -90,7 +90,7 @@ const SelectPrimaryScreen = ({ navigation, route }: { navigation: any; route: an
           style={[styles.continueButton, !canContinue && styles.continueButtonDisabled]}
           onPress={() => {
             if (canContinue) {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              haptics.impact('medium');
               navigation.navigate('CreateProfile', {
                 selectedPathways,
                 primaryPathway: primary,
@@ -100,7 +100,7 @@ const SelectPrimaryScreen = ({ navigation, route }: { navigation: any; route: an
           disabled={!canContinue}
           activeOpacity={0.8}
         >
-          <LinearGradient
+          <Gradient
             colors={canContinue ? [colors.primary, colors.primaryDark] : [colors.surfaceLight, colors.surfaceLight]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
@@ -109,7 +109,7 @@ const SelectPrimaryScreen = ({ navigation, route }: { navigation: any; route: an
             <Text style={[styles.continueText, !canContinue && styles.continueTextDisabled]}>
               Continue
             </Text>
-          </LinearGradient>
+          </Gradient>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

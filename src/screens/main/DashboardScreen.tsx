@@ -8,8 +8,8 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius, pathwayGradients, difficultyColors, getImpactColor } from '../../utils/theme';
 import { useUser } from '../../context/UserContext';
 import { PATHWAYS } from '../../data/pathways';
@@ -50,7 +50,7 @@ const DashboardScreen: React.FC = () => {
 
   const handleTaskComplete = async (task: Task) => {
     if (todayCompletedTasks.includes(task.id)) return;
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    haptics.notification('success');
     await completeTask(task);
   };
 
@@ -83,7 +83,7 @@ const DashboardScreen: React.FC = () => {
         <View style={styles.progressSection}>
           <Text style={styles.sectionTitle}>Today's Progress</Text>
           <View style={styles.progressCard}>
-            <LinearGradient
+            <Gradient
               colors={pathwayGradients[user.primaryPathway]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -106,7 +106,7 @@ const DashboardScreen: React.FC = () => {
               <View style={styles.progressBarBg}>
                 <View style={[styles.progressBarFill, { width: `${completionPercent}%` }]} />
               </View>
-            </LinearGradient>
+            </Gradient>
           </View>
         </View>
 

@@ -8,8 +8,8 @@ import {
   SafeAreaView,
   Alert,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius, pathwayGradients } from '../../utils/theme';
 import { useUser } from '../../context/UserContext';
 import { PATHWAYS } from '../../data/pathways';
@@ -46,7 +46,7 @@ const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           text: 'Reset',
           style: 'destructive',
           onPress: async () => {
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+            haptics.notification('warning');
             await resetProgress();
           },
         },
@@ -60,14 +60,14 @@ const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         {/* Profile Header */}
         <View style={styles.header}>
           <View style={styles.avatarContainer}>
-            <LinearGradient
+            <Gradient
               colors={pathwayGradients[user.primaryPathway]}
               style={styles.avatarGradient}
             >
               <Text style={styles.avatarEmoji}>
                 {user.username.charAt(0).toUpperCase()}
               </Text>
-            </LinearGradient>
+            </Gradient>
           </View>
           <Text style={styles.username}>{user.username}</Text>
           <Text style={styles.memberSince}>

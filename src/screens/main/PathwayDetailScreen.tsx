@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
+import { Gradient } from '../../components/Gradient';
+import { haptics } from '../../utils/haptics';
 import { colors, spacing, typography, borderRadius, pathwayGradients, difficultyColors } from '../../utils/theme';
 import { useUser } from '../../context/UserContext';
 import { PATHWAYS } from '../../data/pathways';
@@ -29,20 +29,20 @@ const PathwayDetailScreen = ({ navigation, route }: { navigation: any; route: an
 
   const handleTaskComplete = async (task: Task) => {
     if (todayCompletedTasks.includes(task.id)) return;
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    haptics.notification('success');
     await completeTask(task);
   };
 
   const handleSetPrimary = async () => {
     if (isPrimary) return;
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    haptics.notification('success');
     await setPrimaryPathway(pathwayId);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header with gradient */}
-      <LinearGradient
+      <Gradient
         colors={pathwayGradients[pathwayId]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -83,7 +83,7 @@ const PathwayDetailScreen = ({ navigation, route }: { navigation: any; route: an
             <Text style={styles.primaryIndicatorText}>⭐ Primary Pathway</Text>
           </View>
         )}
-      </LinearGradient>
+      </Gradient>
 
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Stats */}

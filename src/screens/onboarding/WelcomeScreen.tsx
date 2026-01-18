@@ -7,7 +7,7 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Gradient } from '../../components/Gradient';
 import { colors, spacing, typography, borderRadius } from '../../utils/theme';
 
 const { width } = Dimensions.get('window');
@@ -53,14 +53,14 @@ const WelcomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           onPress={() => navigation.navigate('SelectPathways')}
           activeOpacity={0.8}
         >
-          <LinearGradient
+          <Gradient
             colors={[colors.primary, colors.primaryDark]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.ctaGradient}
           >
             <Text style={styles.ctaText}>Start Your Journey</Text>
-          </LinearGradient>
+          </Gradient>
         </TouchableOpacity>
 
         <Text style={styles.disclaimer}>
