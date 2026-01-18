@@ -26,11 +26,16 @@
       "package": "com.everymaxx.app"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "backgroundColor": "#0D0D0F",
+      "name": "EveryMaxx",
+      "shortName": "EveryMaxx",
+      "description": "Science-driven self-improvement app - Level up your life",
+      "themeColor": "#6C5CE7"
     },
-    "plugins": [
-      "expo-haptics"
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "everymaxx"
