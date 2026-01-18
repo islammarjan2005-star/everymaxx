@@ -35,6 +35,9 @@
       "description": "Science-driven self-improvement app - Level up your life",
       "themeColor": "#6C5CE7"
     },
+    "experiments": {
+      "baseUrl": "./"
+    },
     "plugins": [],
     "extra": {
       "eas": {
